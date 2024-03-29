@@ -1,0 +1,109 @@
+/* .large-checkbox {
+    transform: scale(1.5); 
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+  } */
+
+  .large-checkbox {
+    transform: scale(2.5); 
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+  }
+
+
+  .checkbox {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .clable{
+    padding-left: 20px;
+    text-justify: auto;
+  }
+
+  .checkbox-label {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .checkbox-label:hover {
+    transform: scale(1.1);
+  }
+  
+  .large-checkbox:checked + .clable::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: -1;
+  }
+  
+  .large-checkbox {
+    /* Add your existing styles here */
+    /* Add 3D effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .clable {
+    /* Add your existing styles here */
+    /* Add 3D effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .clable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .large-checkbox {
+    appearance: none;
+    background-color: #f0f0f0; /* Lighter shade for the background */
+    margin: 10px;
+    font-size: 24px;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ddd; /* Light gray border */
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .large-checkbox:checked {
+    background-color: #d1e0e0; /* Slightly different shade when checked */
+  }
+  
+  .large-checkbox:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -4px;
+    left: -4px;
+    border: 2px solid #333; /* Dark border for the 3D effect */
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .large-checkbox:checked:after {
+    opacity: 1;
+  }
+
+  
+  

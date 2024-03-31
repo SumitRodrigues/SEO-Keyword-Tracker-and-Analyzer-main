@@ -16,7 +16,7 @@ const Footer = () => {
     <footer className='footer'>
          <AppBar position='static' style={{ paddingLeft: '20px' }} sx={{ backgroundColor: customTheme.palette.primary.main }}>
      <Typography variant='h6' component='div' sx={{flexGrow:1 }}>
-     &copy; 2024 SEO Keyword Tracker and Analyzer
+     &copy; 2024 Team 3
     </Typography>
     </AppBar>
    

@@ -1,29 +1,24 @@
+
 import React, { useState, useEffect } from "react";
 import {
   TextField,
   Button,
   Container,
   Typography,
-  InputAdornment,
-  InputLabel,
+  CircularProgress,
+  Paper,
+  Box,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import "./Home.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
-  const [animatedPlaceholder, setAnimatedPlaceholder] = useState("");
-  const typingSpeed = 100;
   const [urlError, setUrlError] = useState("");
   const navigate = useNavigate();
-  const placeholderTexts = ["Enter the URL here", "Enter URL to webscrape"];
-  const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [openCheckboxSnackbar, setOpenCheckboxSnackbar] = useState(false);
@@ -45,7 +40,6 @@ const Home = () => {
     "Counting words...",
     "Generating word cloud...",
     "Almost reached...",
-    // Add more steps as needed
   ]);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -68,13 +62,6 @@ const Home = () => {
     }
   };
 
-  const customFontStyle = {
-    fontFamily: "Roboto, sans-serif",
-    fontSize: "24px",
-    color: "black", // You can choose your preferred color
-    fontWeight: "normal", // You can use 'normal' or 'bold' as per your preference
-  };
-
   useEffect(() => {
     let stepIndex = 0;
 
@@ -83,43 +70,14 @@ const Home = () => {
       stepIndex = (stepIndex + 1) % loadingSteps.length;
     };
 
-    const interval = setInterval(showNextStep, 2000); // Change the interval duration as needed
+    const interval = setInterval(showNextStep, 2000);
 
-    showNextStep(); // Show the first step immediately
+    showNextStep();
 
     return () => {
       clearInterval(interval);
     };
   }, [loadingSteps]);
-
-  useEffect(() => {
-    let currentIndex = 0;
-    let interval;
-
-    if (!inputValue) {
-      interval = setInterval(() => {
-        if (currentIndex <= placeholderTexts[placeholderIndex].length) {
-          setAnimatedPlaceholder(
-            placeholderTexts[placeholderIndex].substring(0, currentIndex)
-          );
-          currentIndex++;
-        } else {
-          clearInterval(interval);
-          setTimeout(() => {
-            setAnimatedPlaceholder("");
-            setPlaceholderIndex((prevIndex) => (prevIndex + 1) % 2);
-          }, 2000); // Wait 2 seconds before switching to the next placeholder
-        }
-      }, typingSpeed);
-    } else {
-      setAnimatedPlaceholder(""); // Reset the animated placeholder if there's user input
-      clearInterval(interval);
-    }
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [placeholderIndex, inputValue]);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -129,8 +87,6 @@ const Home = () => {
   };
 
   const postString = async () => {
-    event.preventDefault();
-
     if (!inputValue.trim()) {
       handleOpenSnackbar();
       return;
@@ -154,10 +110,6 @@ const Home = () => {
 
     try {
       setIsLoading(true);
-
-      const selectedCheckboxes = Object.keys(checkboxValues)
-        .filter((key) => checkboxValues[key])
-        .map((key) => key);
 
       const dataToSend = {
         data: inputValue,
@@ -236,181 +188,158 @@ const Home = () => {
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
+        backgroundColor: "#FFE4B5",
+        padding: "20px",
+        borderRadius: "10px"
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          "& > :not(style)": {
-            m: 1,
-            width: 1600,
-            height: 600,
+      <TextField
+        variant="standard"
+        size="small"
+        fullWidth
+        InputProps={{
+          style: {
+            fontSize: "30px",
+            marginTop: "30px", // Add margin on top
+            borderBottom: "3px solid black",
           },
         }}
+        inputProps={{
+          style: {
+            textAlign: "center", // Center-align the placeholder text
+          },
+        }}
+        value={inputValue}
+        onChange={handleInputChange}
+        placeholder="Enter the URL here"
+        error={urlError !== ""}
+        helperText={urlError}
+        FormHelperTextProps={{
+          style: { fontSize: "1.25rem" }, // Increase the font size as needed
+        }}
+      />
+
+      <div className="checkbox">
+        <div className="checkbox-label">
+          <input
+            type="checkbox"
+            id="opt2"
+            name="rabinKarp"
+            checked={checkboxValues.rabinKarp}
+            className="large-checkbox"
+            onChange={handleCheckboxChange}
+          />
+          <label className="clable" htmlFor="opt2">
+            <h3>Rabin-Karp</h3>
+          </label>
+        </div>
+        <div className="checkbox-label">
+          <input
+            type="checkbox"
+            id="opt3"
+            name="suffixTree"
+            checked={checkboxValues.suffixTree}
+            className="large-checkbox"
+            onChange={handleCheckboxChange}
+          />
+          <label className="clable" htmlFor="opt3">
+            <h3>Suffix Tree</h3>
+          </label>
+        </div>
+        <div className="checkbox-label">
+          <input
+            type="checkbox"
+            id="opt4"
+            name="suffixArray"
+            checked={checkboxValues.suffixArray}
+            className="large-checkbox"
+            onChange={handleCheckboxChange}
+          />
+          <label className="clable" htmlFor="opt4">
+            <h3>Suffix Array</h3>
+          </label>
+        </div>
+        <div className="checkbox-label">
+          <input
+            type="checkbox"
+            id="opt5"
+            name="naiveStringMatching"
+            checked={checkboxValues.naiveStringMatching}
+            className="large-checkbox"
+            onChange={handleCheckboxChange}
+          />
+          <label className="clable" htmlFor="opt5">
+            <h3>Naive String Matching</h3>
+          </label>
+        </div>
+        <div className="checkbox-label">
+          <input
+            type="checkbox"
+            id="opt6"
+            name="kmpAlgorithm"
+            checked={checkboxValues.kmpAlgorithm}
+            className="large-checkbox"
+            onChange={handleCheckboxChange}
+          />
+          <label className="clable" htmlFor="opt6">
+            <h3>KMP algorithm</h3>
+          </label>
+        </div>
+        <div className="checkbox-label">
+          <input
+            type="checkbox"
+            id="opt1"
+            name="selectAll"
+            checked={checkboxValues.selectAll}
+            className="large-checkbox"
+            onChange={handleCheckboxChange}
+          />
+          <label className="clable" htmlFor="opt1">
+            <h3>Select All</h3>
+          </label>
+        </div>
+      </div>
+
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        style={{
+          marginTop: "20px",
+          fontSize: "1.25rem",
+          padding: "15px 40px",
+          backgroundColor: "#4CAF50", // Your desired color
+          boxShadow: "0 5px #999", // 3D effect
+          cursor: "pointer", // Change cursor to pointer
+          transition: "transform 0.2s, boxShadow 0.2s", // Smooth transition for hover effect
+        }}
+        onClick={() => {
+          postString();
+        }}
+        onMouseOver={(e) => e.target.style.transform = "scale(1.1)"} // Popping effect on hover
+        onMouseOut={(e) => e.target.style.transform = "scale(1)"} // Revert effect when not hovered
       >
-        <Paper elevation={24} >
-          <form
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              backgroundColor: "#FFE4B5",
-              padding: "20px",
-              borderRadius: "10px"
-            }}
-          >
-            <TextField
-              variant="standard"
-              size="small"
-              fullWidth
-              InputProps={{
-                style: {
-                  fontSize: "30px",
-                  marginTop: "30px", // Add margin on top
-                  borderBottom: "3px solid black",
-                },
-              }}
-              inputProps={{
-                style: {
-                  textAlign: "center", // Center-align the placeholder text
-                },
-              }}
-              value={inputValue}
-              onChange={handleInputChange}
-              placeholder={animatedPlaceholder}
-              error={urlError !== ""}
-              helperText={urlError}
-              FormHelperTextProps={{
-                style: { fontSize: "1.25rem" }, // Increase the font size as needed
-              }}
-            />
+        ANALYZE
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        style={{
+          marginTop: "20px",
+          fontSize: "1.25rem",
+          padding: "15px 40px",
+          backgroundColor: "#f44336", // Your desired color
+          boxShadow: "0 5px #999", // 3D effect
+          cursor: "pointer", // Change cursor to pointer
+          transition: "transform 0.2s, boxShadow 0.2s", // Smooth transition for hover effect
+        }}
+        onClick={clearInputAndCheckboxes}
+        onMouseOver={(e) => e.target.style.transform = "scale(1.1)"} // Popping effect on hover
+        onMouseOut={(e) => e.target.style.transform = "scale(1)"} // Revert effect when not hovered
+      >
+        REFRESH
+      </Button>
 
-            <div className="checkbox">
-              <div className="checkbox-label">
-                <input
-                  type="checkbox"
-                  id="opt2"
-                  name="rabinKarp"
-                  checked={checkboxValues.rabinKarp}
-                  className="large-checkbox"
-                  onChange={handleCheckboxChange}
-                />
-                <label className="clable" htmlFor="opt2">
-                  <h3>Rabin-Karp</h3>
-                </label>
-              </div>
-              <div className="checkbox-label">
-                <input
-                  type="checkbox"
-                  id="opt3"
-                  name="suffixTree"
-                  checked={checkboxValues.suffixTree}
-                  className="large-checkbox"
-                  onChange={handleCheckboxChange}
-                />
-                <label className="clable" htmlFor="opt3">
-                  <h3>Suffix Tree</h3>
-                </label>
-              </div>
-              <div className="checkbox-label">
-                <input
-                  type="checkbox"
-                  id="opt4"
-                  name="suffixArray"
-                  checked={checkboxValues.suffixArray}
-                  className="large-checkbox"
-                  onChange={handleCheckboxChange}
-                />
-                <label className="clable" htmlFor="opt4">
-                  <h3>Suffix Array</h3>
-                </label>
-              </div>
-              <div className="checkbox-label">
-                <input
-                  type="checkbox"
-                  id="opt5"
-                  name="naiveStringMatching"
-                  checked={checkboxValues.naiveStringMatching}
-                  className="large-checkbox"
-                  onChange={handleCheckboxChange}
-                />
-                <label className="clable" htmlFor="opt5">
-                  <h3>Naive String Matching</h3>
-                </label>
-              </div>
-              <div className="checkbox-label">
-                <input
-                  type="checkbox"
-                  id="opt6"
-                  name="kmpAlgorithm"
-                  checked={checkboxValues.kmpAlgorithm}
-                  className="large-checkbox"
-                  onChange={handleCheckboxChange}
-                />
-                <label className="clable" htmlFor="opt6">
-                  <h3>KMP algorithm</h3>
-                </label>
-              </div>
-              <div className="checkbox-label">
-                <input
-                  type="checkbox"
-                  id="opt1"
-                  name="selectAll"
-                  checked={checkboxValues.selectAll}
-                  className="large-checkbox"
-                  onChange={handleCheckboxChange}
-                />
-                <label className="clable" htmlFor="opt1">
-                  <h3>Select All</h3>
-                </label>
-              </div>
-            </div>
-
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              style={{
-                marginTop: "20px",
-                fontSize: "1.25rem",
-                padding: "15px 40px",
-                backgroundColor: "#4CAF50", // Your desired color
-                boxShadow: "0 5px #999", // 3D effect
-                cursor: "pointer", // Change cursor to pointer
-                transition: "transform 0.2s, boxShadow 0.2s", // Smooth transition for hover effect
-              }}
-              onClick={() => {
-                postString();
-              }}
-              onMouseOver={(e) => e.target.style.transform = "scale(1.1)"} // Popping effect on hover
-              onMouseOut={(e) => e.target.style.transform = "scale(1)"} // Revert effect when not hovered
-            >
-              ANALYZE
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{
-                marginTop: "20px",
-                fontSize: "1.25rem",
-                padding: "15px 40px",
-                backgroundColor: "#f44336", // Your desired color
-                boxShadow: "0 5px #999", // 3D effect
-                cursor: "pointer", // Change cursor to pointer
-                transition: "transform 0.2s, boxShadow 0.2s", // Smooth transition for hover effect
-              }}
-              onClick={clearInputAndCheckboxes}
-              onMouseOver={(e) => e.target.style.transform = "scale(1.1)"} // Popping effect on hover
-              onMouseOut={(e) => e.target.style.transform = "scale(1)"} // Revert effect when not hovered
-            >
-              REFRESH
-            </Button>
-
-
-          </form>
-        </Paper>
-      </Box>
       <Snackbar
         open={openSnackbar}
         autoHideDuration={4000}

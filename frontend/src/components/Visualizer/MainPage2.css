@@ -1,35 +1,47 @@
 .main-page-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 100vh;
-    background-color: #f0f0f0;
-  }
-  
-  .back-button-container {
-    margin-bottom: 20px;
-  }
-  
-  .charts-container {
-    display: flex; /* Added to ensure horizontal layout */
-    justify-content: space-around; /* Added for spacing */
-    width: 100%; /* Added to take the full width of its parent */
-    flex-wrap: wrap; /* Added to allow the charts to wrap if the screen is not wide enough */
-  }
-  
-  .chart-container {
-    width: 45%; /* Adjust as needed */
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin: 10px;
-  }
-  
-  h2 {
-    font-size: 18px;
-    margin: 10px 0;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* This will push the footer to the bottom */
+  min-height: 100vh; /* Use min-height to fill at least the viewport height */
+  background-color: #FFE4B5;
+  padding: 60px 20px 80px; /* Top, sides, bottom padding */
+}
+
+.back-button-container {
+  align-self: flex-start; /* Aligns the back button to the left */
+  margin: 20px; /* Adds margin on all sides */
+  margin-bottom: 60px;
+}
+
+.back-button-container,
+.charts-container {
+  margin-bottom: 60px; /* Adjust as necessary */
+}
+
+.charts-container {
+  display: flex;
+  justify-content: center; /* Centers charts horizontally */
+  flex-wrap: wrap; /* Allows charts to wrap onto the next line */
+  gap: 20px; /* Adds space between the charts */
+  padding: 20px; /* Adds padding within the container */
+  max-width: 480px; /* Maximum width of the container */
+  width: 100%; /* Takes full width of its parent */
+  margin: 20px; /* Centers the container in the available horizontal space */
+}
+
+.chart-container {
+  flex: 0 1 calc(50% - 40px); /* Sets basis to half of container width minus gap */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  /* Removed margin, as gap in .charts-container now handles spacing */
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 10px; /* Adjusted to add margin only to the bottom */
+}
+

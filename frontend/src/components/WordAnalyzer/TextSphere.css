@@ -1,32 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800;900&display=swap');
 
-.text-shpere {
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #000; /* Set background color to black */
+.text-sphere {
+  position: relative;
+  width: 100%;
+  height: 500px; /* Adjust the height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000; /* Set background color to black */
+  overflow: hidden; /* Ensure the cloud stays within bounds */
 }
 
 .tagcloud {
-    display: inline-block;
-    top: 0;
-    left: 0;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.0625em;
-    font-size: 1.3em;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.0625em;
+  font-size: 1.3em;
 }
 
-/* Change color of each text in sphere on hover   */
-.tagcloud--item {
-    color: #00ffffff; /* This appears to be a typo; it should be just "00ff00" for green */
-    text-transform: uppercase;
+.tagcloud span {
+  white-space: nowrap; /* Prevent line breaks in tags */
+  pointer-events: none; /* Optional: Disable mouse events for a static cloud */
 }
 
+/* Customize color and transform on hover */
 .tagcloud--item:hover {
-    color: #ff6347; /* Set the color to red on hover */
+  color: #ff6347; /* Set the color to red on hover */
+  transform: scale(1.1); /* Slightly increase the tag size */
 }

@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
-// Importing TagCloud package
-import TagCloud from "TagCloud";
-import  "./TextSphere.css"
+import React, { useEffect } from 'react';
+import TagCloud from 'TagCloud';
+import './TextSphere.css';
 
-const TextShpere = ({data}) => {
-
-  if (!data || typeof data !== "object") {
+const TextSphere = ({ data }) => {
+  if (!data || typeof data !== 'object') {
     return <div>Loading...</div>;
   }
 
@@ -18,46 +16,41 @@ const TextShpere = ({data}) => {
     return color;
   }
 
-
   useEffect(() => {
-    return () => {
-      const container = ".tagcloud";
-
-      // const texts = data ? Object.keys(data) : [];
-      
+    const container = '.tagcloud';
     const entries = Object.entries(data);
-
     const top50Words = entries
       .sort((a, b) => b[1] - a[1])
       .slice(0, 50)
       .map(([word]) => word);
 
-      const texts = top50Words
+    TagCloud(container, top50Words, {
+      radius: 300,
+      maxSpeed: 'fast',
+      initSpeed: 'fast',
+      direction: 135,
+      keep: true
+    });
 
-      const options = {
-        radius: 450,
-        maxSpeed: "normal",
-        initSpeed: "normal",
-        keep: true,
-      };
+    const tags = document.querySelectorAll('.tagcloud span');
+    tags.forEach(tag => {
+      tag.style.color = getRandomColor();
+    });
 
-      const tagCloud = TagCloud(container, texts, options);
-      const tags = document.querySelectorAll('.tagcloud span');
-      tags.forEach(tag => {
-        tag.style.color = getRandomColor();
-      });
-
+    // This function will be called when the component is unmounted
+    return () => {
+      const tagCloudContainer = document.querySelector(container);
+      if (tagCloudContainer) {
+        tagCloudContainer.innerHTML = '';
+      }
     };
-  }, []);
+  }, [data]);
 
   return (
-    <>
-      <div className="text-shpere" >
-        {/* span tag className must be "tagcloud"  */}
-        <span className="tagcloud"></span>
-      </div>
-    </>
+    <div className='text-sphere'>
+      <span className='tagcloud'></span>
+    </div>
   );
 };
 
-export default TextShpere;
+export default TextSphere;

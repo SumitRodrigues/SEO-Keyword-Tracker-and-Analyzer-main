@@ -1,50 +1,46 @@
-import {React, useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Demo from './Demo';
 import { Grid, Paper, Typography } from '@mui/material';
 import TextSphere from './TextSphere';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import './Mainpage.css';
 
 const MainPage = () => {
   const [responseData, setResponseData] = useState(null);
 
-
   useEffect(() => {
-
     const storedData = localStorage.getItem("responseData");
-
     if (storedData) {
       const data = JSON.parse(storedData);
-      setResponseData(data)
+      setResponseData(data);
     } else {
       console.log("No response data found in localStorage");
     }
-  }, []); 
-
+  }, []);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop:"60px", marginBottom:"30px" }}>
-      <Grid container spacing={2}>
-          <Grid item xs={6}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
-            <br></br>
-            <Typography align='center' variant="h5" style={{ fontSize: '30px', fontWeight: 'bold' }}>
+    <div className="main-page-container">
+      <Grid container spacing={2} className="grid-container">
+        <Grid item xs={12} md={6} className="grid-item">
+          <Paper className="paper-container" elevation={3}>
+            <Typography className="typography-title" align='center' variant="h5">
               Keywords Count
             </Typography>
             <Demo data={responseData?.data}/>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Link to="/home">
-                <Button variant="contained" size="small" style={{ backgroundColor: 'blue', margin: "10px" }}>
+            <div className="button-container">
+              <Link to="/home">
+                <Button className="button-base button-back" variant="contained" size="small">
                   Back
                 </Button>
               </Link>
               <Link to="/analyzer">
-                <Button variant="contained" size="small" style={{ backgroundColor: 'red', margin: "10px" }}>
+                <Button className="button-base button-analyzer" variant="contained" size="small">
                   Analyzer
                 </Button>
               </Link>
               <Link to="/recommender">
-                <Button variant="contained" size="small" style={{ backgroundColor: 'green', margin: "10px" }}>
+                <Button className="button-base button-recommender" variant="contained" size="small">
                   Recommender
                 </Button>
               </Link>
@@ -52,17 +48,14 @@ const MainPage = () => {
           </Paper>
         </Grid>
 
-        <Grid item xs={6}>
-        <Paper elevation={3} style={{ padding: '20px', marginBottom: "30px", maxHeight: '920px', overflow: 'auto' }}>
-          <br></br>
-          <Typography align='center' variant="h5" style={{ fontSize: '30px', fontWeight: 'bold' }}>
-            Word Cloud
-          </Typography>
-          <TextSphere data={responseData?.data} />
-          <br></br>
-        </Paper>
+        <Grid item xs={12} md={6} className="grid-item">
+          <Paper className="paper-container" elevation={3}>
+            <Typography className="typography-title" align='center' variant="h5">
+              Word Cloud
+            </Typography>
+            <TextSphere data={responseData?.data} />
+          </Paper>
         </Grid>
-
       </Grid>
     </div>
   );

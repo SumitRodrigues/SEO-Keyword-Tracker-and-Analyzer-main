@@ -1,13 +1,77 @@
+.main-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  background-color: #FFE4B5;
+  padding: 60px 20px 80px;
+}
+
 .app-container {
-    display: flex;
-    width: 100%;
-    height: 100vh; /* Adjust this as needed */
-  }
-  
-  .left-layout, .right-layout {
-    flex: 1;
-    height: 100%;
-    padding: 20px; /* Adjust this as needed */
-    border: 1px solid #ddd; /* Just for illustration */
-  }
-  
+  display: flex;
+  width: 100%;
+  height: auto;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding-bottom: 80px;
+}
+
+.grid-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.grid-item {
+  width: 100%;
+}
+
+.paper-container {
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.typography-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button-base {
+  border-radius: 20px;
+  padding: 10px 15px;
+  font-weight: bold;
+  margin: 10px;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+  color: white;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.button-base:hover {
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  transform: translateY(-3px);
+}
+
+.button-back {
+  background: #4facfe;
+}
+
+.button-analyzer {
+  background: #ff758c;
+}
+
+.button-recommender {
+  background: #42e695;
+}

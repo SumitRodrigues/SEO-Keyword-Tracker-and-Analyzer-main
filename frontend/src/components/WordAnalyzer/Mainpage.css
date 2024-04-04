@@ -2,16 +2,44 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: auto;
+  justify-content: space-between; /* This will push the footer to the bottom */
+  min-height: 100vh; /* Use min-height to fill at least the viewport height */
   background-color: #FFE4B5;
-  padding: 60px 20px 80px;
+  padding: 60px 20px 80px; /* Top, sides, bottom padding */
+}
+
+.back-button-container,
+.charts-container {
+  margin-bottom: 60px; /* Adjust as necessary */
+}
+
+.charts-container {
+  display: flex;
+  justify-content: center; /* Centers charts horizontally */
+  flex-wrap: wrap; /* Allows charts to wrap onto the next line */
+  gap: 20px; /* Adds space between the charts */
+  padding: 20px; /* Adds padding within the container */
+  max-width: 480px; /* Maximum width of the container */
+  width: 100%; /* Takes full width of its parent */
+}
+
+.chart-container {
+  flex: 0 1 calc(50% - 40px); /* Sets basis to half of container width minus gap */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 10px; /* Adjusted to add margin only to the bottom */
 }
 
 .app-container {
   display: flex;
   width: 100%;
-  height: auto;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   padding-bottom: 80px;
 }
@@ -29,7 +57,6 @@
 
 .paper-container {
   padding: 20px;
-  margin-bottom: 30px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -47,13 +74,14 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  gap: 20px;
 }
 
 .button-base {
   border-radius: 20px;
   padding: 10px 15px;
   font-weight: bold;
-  margin: 10px;
+  margin: 0 10px;
   box-shadow: 0 3px 5px rgba(0,0,0,0.2);
   color: white;
   transition: box-shadow 0.2s, transform 0.2s;
@@ -74,4 +102,21 @@
 
 .button-recommender {
   background: #42e695;
+}
+
+@media (max-width: 768px) {
+  .grid-item,
+  .charts-container,
+  .chart-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .chart-container {
+    padding: 20px;
+  }
+
+  .main-page-container {
+    padding: 60px 10px 20px;
+  }
 }

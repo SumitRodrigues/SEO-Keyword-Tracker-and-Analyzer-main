@@ -43,7 +43,7 @@ const MainPage2 = () => {
         </div>
       </div>
       <div className="button-container">
-        <Button variant="contained" color="secondary" onClick={handleRefreshClick} style={{ marginRight: '10px' }}>
+        <Button variant="contained" color="primary" onClick={handleRefreshClick} style={{ marginRight: '10px' }}>
           Refresh
         </Button>
         <Button variant="contained" color="primary" onClick={handleBackClick}>

@@ -29,6 +29,7 @@ const Recommendation = () => {
   const [searchData, setSearchData] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
   const handleBack = () => {
@@ -114,6 +115,7 @@ const Recommendation = () => {
 
     try {
       setIsLoading(true);
+      setError(''); // Reset error state
       const response = await axios.post(
         "https://api.dataforseo.com/v3/keywords_data/google_ads/keywords_for_keywords/live",
         postArray,
@@ -148,7 +150,8 @@ const Recommendation = () => {
         console.error("No result found", result);
       }
     } catch (error) {
-      console.error("Error while fetching search volume", error);
+      console.error("Error while fetching recommendations", error);
+      setError('Failed to fetch recommendations. Please try again later.');
     } finally {
       setIsLoading(false);
     }
@@ -170,7 +173,7 @@ const Recommendation = () => {
       <Button
         startIcon={<ArrowBackIcon />}
         onClick={handleBack}
-        style={{ alignSelf: "flex-start", marginBottom: "20px", marginLeft:"10px" }}
+        style={{ alignSelf: "flex-start", marginBottom: "20px", marginLeft: "10px" }}
       >
         Back
       </Button>
@@ -273,7 +276,12 @@ const Recommendation = () => {
           </>
         )
       )}
-
+      {/* Display error message */}
+      {error && (
+        <Typography color="error" variant="body2" style={{ marginTop: '20px' }}>
+          {error}
+        </Typography>
+      )}
       <Snackbar
         open={openSnackbar}
         autoHideDuration={4000}

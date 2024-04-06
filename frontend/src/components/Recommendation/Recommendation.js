@@ -66,8 +66,8 @@ const Recommendation = () => {
         postArray,
         {
           auth: {
-            username: "aniket.wattamwar17@gmail.com",
-            password: "6aa8991ae1ab613a",
+            username: "rakeshpuppala2591@csu.fullerton.edu",
+            password: "R@kesh259014",
           },
           headers: {
             "Content-Type": "application/json",
@@ -121,7 +121,7 @@ const Recommendation = () => {
         postArray,
         {
           auth: {
-            username: "aniket.wattamwar17@gmail.com",
+            username: "rakeshpuppala2591@csu.fullerton.edu",
             password: "6aa8991ae1ab613a",
           },
           headers: {

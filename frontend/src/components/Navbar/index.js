@@ -1,5 +1,6 @@
 import React from 'react';
 import './Navbar.css';
+import { Link } from 'react-router-dom'; // Import Link
 import { Nav, NavLink, Bars, NavMenu } from './NavbarElements';
 import logoImage from '../../image/logo.png';
 import { AppBar, Toolbar, IconButton, Typography, Stack, Button } from '@mui/material'
@@ -30,16 +31,18 @@ const Navbar = () => {
 
             <div style={{ display: 'flex', alignItems: 'center' }}>
               {/* Logo */}
-              <img
-                src={logoImage}
-                alt="Logo"
-                style={{
-                  height: '100px', // Adjust the height as needed
-                  width: '120px;', // Maintain aspect ratio
-                  marginRight: '10px', // Optional: Add some right margin for spacing
-                  cursor: 'pointer'
-                }}
-              />
+              <Link to="/">
+                <img
+                  src={logoImage}
+                  alt="Logo"
+                  style={{
+                    height: '100px',
+                    width: '120px',
+                    marginRight: '10px',
+                    cursor: 'pointer'
+                  }}
+                />
+              </Link>
             </div>
             <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             </Typography>

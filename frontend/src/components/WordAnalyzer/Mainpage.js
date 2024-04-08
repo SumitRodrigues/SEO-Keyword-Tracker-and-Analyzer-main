@@ -39,11 +39,11 @@ const MainPage = () => {
                   Analyzer
                 </Button>
               </Link>
-              <Link to="/recommender">
+              {/* <Link to="/recommender">
                 <Button className="button-base button-recommender" variant="contained" size="small">
                   Recommender
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </Paper>
         </Grid>
